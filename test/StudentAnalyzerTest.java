@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class StudentAnalyzerTest {
 
@@ -63,5 +64,35 @@ public class StudentAnalyzerTest {
     public void testCalculateValidAverage_AllInvalid() {
         StudentAnalyzer analyzer = new StudentAnalyzer();
         assertEquals(0, analyzer.calculateValidAverage(Arrays.asList(-2.0, 11.0, null)), 0.0001);
+    }
+
+    @Test
+    void testCountExcellentStudents_NullInput() {
+        StudentAnalyzer analyzer = new StudentAnalyzer();
+        int result = analyzer.countExcellentStudents(null);
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testCalculateValidAverage_NullInput() {
+        StudentAnalyzer analyzer = new StudentAnalyzer();
+        double result = analyzer.calculateValidAverage(null);
+        assertEquals(0.0, result);
+    }
+
+    @Test
+    void testCountExcellentStudents_ListWithNull() {
+        StudentAnalyzer analyzer = new StudentAnalyzer();
+        List<Double> scores = Arrays.asList(9.0, null, 10.0, null);
+        int result = analyzer.countExcellentStudents(scores);
+        assertEquals(2, result); // chỉ 9.0 và 10.0 là hợp lệ
+    }
+
+    @Test
+    void testCalculateValidAverage_ListWithNull() {
+        StudentAnalyzer analyzer = new StudentAnalyzer();
+        List<Double> scores = Arrays.asList(null, 6.0, 8.0, null);
+        double result = analyzer.calculateValidAverage(scores);
+        assertEquals(7.0, result, 0.001);
     }
 }
